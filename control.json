@@ -1,0 +1,8 @@
+{
+    "name"    : "webapps-social-lib",
+    "version" : "0.1.0",
+    "classes" : [ "Social" ],
+    "deps"    : [ 
+        "webapps-social-lib"
+    ]
+}
