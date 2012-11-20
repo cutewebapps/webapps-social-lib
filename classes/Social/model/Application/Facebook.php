@@ -162,7 +162,6 @@ class Social_Application_Facebook
         if ( isset( $_POST['signed_request'] ) ) {
             $arrRequest = $this->getSignedRequest();
             if ( isset( $arrRequest['page'] ) && isset( $arrRequest['page']['liked'] ) ) {
-                    $objSession->$strLikeVarId = $arrRequest['page']['liked'];
                     return $arrRequest['page']['liked'];
             }
         } 
