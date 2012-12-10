@@ -50,29 +50,39 @@ return array(
         ),
 
         // start: social apps login
-        'oauth/facebook/callback' => array(
+        array(
             'route' => '/oauth/facebook/callback',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'oauth', 'provider' => 'facebook', 'application' => $strSocialApp ),
         ),
-        'oauth/twitter/callback' => array(
+        array(
             'route' => '/oauth/twitter/callback',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'oauth', 'provider' => 'twitter', 'application' => $strSocialApp ),
         ),
-        'oauth/google/callback' => array(
+        array(
             'route' => '/oauth/google/callback',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'oauth', 'provider' => 'google', 'application' => $strSocialApp ),
         ),
-        'oauth/facebook' => array(
+        array(
+            'route' => '/oauth/google/linkedin',
+            'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'oauth', 'provider' => 'linkedin', 'application' => $strSocialApp ),
+        ),
+    
+    
+        array(
             'route' => '/oauth/facebook',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'login', 'provider' => 'facebook', 'application' => $strSocialApp),
         ),
-        'oauth/twitter' => array(
+        array(
             'route' => '/oauth/twitter',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'login', 'provider' => 'twitter', 'application' => $strSocialApp ),
         ),
-        'oauth/google' => array(
+        array(
             'route' => '/oauth/google',
             'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'login', 'provider' => 'google', 'application' => $strSocialApp ),
+        ),
+        array(
+            'route' => '/oauth/linkedin',
+            'defaults' => array( 'module' => 'hawp', 'controller' => 'user', 'action' => 'login', 'provider' => 'linkedin', 'application' => $strSocialApp ),
         ),
         // end: social apps login
 );
