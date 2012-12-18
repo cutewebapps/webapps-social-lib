@@ -24,7 +24,7 @@ class Social_Application_LinkedIn
             if ( !is_object( $confSocialApps ))
                 throw new Social_Application_Exception( 'no social/apps section in config' );
             
-            $confSocialAppsLinkedIn = $confSocialApps->twitter;
+            $confSocialAppsLinkedIn = $confSocialApps->linkedin;
             if ( !is_object( $confSocialAppsLinkedIn ))
                 throw new Social_Application_Exception( 'no social/apps/twitter section in config' );
 
@@ -34,10 +34,10 @@ class Social_Application_LinkedIn
             $config = $confSocialAppsLinkedIn->$strApplicationName->toArray();
         }
 
-        $this->_strToken             = $config[ 'oauth_token'];
-        $this->_strTokenSecret       = $config[ 'oauth_token_secret'];
-        $this->_strConsumerKey       = $config[ 'oauth_consumer_key'];
-        $this->_strConsumerSecretKey = $config[ 'oauth_consumer_secret_key'];
+        $this->_strToken             = $config[ 'api_key'];
+        $this->_strTokenSecret       = $config[ 'secret_key'];
+        $this->_strConsumerKey       = $config[ 'oauth_user_token'];
+        $this->_strConsumerSecretKey = $config[ 'oauth_user_secret'];
 
         if ( !$this->_strToken) 
             throw new Social_Application_Exception( 'oauth_token is not specified for LinkedIn application '.$strApplicationName );
