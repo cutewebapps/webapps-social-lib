@@ -41,8 +41,8 @@ class Social_OAuth_LinkedIn
         
         //Sys_Debug::dumpdie($this->_LinkedInConnect->getTokenSecret());
         //Sys_Debug::dumpdie($response);
-        
         if($response['success'] === TRUE) {
+            //Sys_Debug::dumpdie( Social_OAuth_LinkedIn_Auth::_URL_AUTH . $response['linkedin']['oauth_token'] );
             // redirect the user to the LinkedIn authentication/authorisation page to initiate validation.
             return Social_OAuth_LinkedIn_Auth::_URL_AUTH . $response['linkedin']['oauth_token'];
         } else {
