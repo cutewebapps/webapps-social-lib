@@ -23,18 +23,17 @@ class Social_OAuth_Callback_Facebook
 
     protected function _fetchUrl( $url )
     {
-	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_URL, $url );
+        $ch = curl_init();
+        curl_setopt( $ch, CURLOPT_URL, $url );
         curl_setopt($ch, CURLOPT_HEADER, 0 );
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE );
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-	$res = curl_exec( $ch );
-	$no = curl_errno($ch);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_exec( $ch );
+        $no = curl_errno($ch);
         if ( $no ) throw new Social_OAuth_Exception( curl_error ( $ch ) );
         
         curl_close( $ch );
-        //Sys_Debug::dump( $res );
-	return $res;
+        return $res;
     }
     
     public function getGraphFromCode( $paramFacebookCode )
@@ -62,6 +61,7 @@ class Social_OAuth_Callback_Facebook
         $this->_strRawGraphData = $this->_fetchUrl( $strGraphUrl );
         $this->_arrGraphData = (array)json_decode( $this->_strRawGraphData, false );
         $this->_strAccessToken = str_replace( 'access_token=', '', $this->_strAccessToken );
+
         return  $this->_arrGraphData;
     }
 
@@ -69,33 +69,12 @@ class Social_OAuth_Callback_Facebook
     {
         if ( $strAccessToken == '' )
             $strAccessToken = $this->_strAccessToken ;
-
-//         Sys_Debug::dumpDie( $arrGraphData );
-
-/*      
-        $objFacebookUser = Facebook_User::Table()->identify( $arrGraphData );
-        if ( !is_object( $objFacebookUser )) return false;
-
-        $objFacebookUser->fbu_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '?';
-        $objFacebookUser->fbu_raw = serialize( $arrGraphData );
-        Sys_Debug::dumpDie( $objFacebookUser );
-        $objFacebookUser->save();
-
-        $this->view->objFacebookUser = $objFacebookUser;
-//        $objSession->user = $objFacebookUser;
-//        $objSession->access_token = $strAccessToken;
-//        $objSession->signed_request = $strSignedRequest;
-
-        $objFbLogs = Facebook_Log::Table()->createRow();
-        $objFbLogs->fbl_user_id = $objFacebookUser->fbu_id;
-        $objFbLogs->fbl_status = Facebook_Log::STATUS_SUCCESS;
-        $objFbLogs->save( false );
-*/
+        
         $this->_strEmail = isset( $arrGraphData['email'] ) ? $arrGraphData['email'] : '';
         $this->_strFirstName = $arrGraphData['first_name'];
         $this->_strLastName = $arrGraphData['last_name'];
+        $this->_strUserName = $arrGraphData['username'];
         $this->_strID = $arrGraphData['id'];
-
         return null;
     }
 
@@ -104,7 +83,16 @@ class Social_OAuth_Callback_Facebook
     protected $_strEmail = '';
     protected $_strFirstName = '';
     protected $_strLastName = '' ;
+    protected $_strUserName = '';
 
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->_strUserName;
+    }
+    
     /**
      * @return string
      */
