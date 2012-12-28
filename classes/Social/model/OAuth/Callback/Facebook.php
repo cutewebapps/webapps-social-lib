@@ -48,14 +48,22 @@ class Social_OAuth_Callback_Facebook
          
         // requesting Graph API for details
         $this->_strAccessToken = $this->_fetchUrl( $strTokenUrl );
-
-	if ( $this->_strAccessToken == '' )
-	    throw new Social_OAuth_Exception( 'Access token was not received' );
-	    
-	if ( substr( $this->_strAccessToken, 0, 1 ) == '{' ) {
+        
+        if ( $this->_strAccessToken == '' )
+            throw new Social_OAuth_Exception( 'Access token was not received' );
+        
+         try {
+                if ( substr( $this->_strAccessToken, 0, 1 ) == '{' ) {
 	    $dataInsteadOfAccessToken = json_decode( $this->_strAccessToken );
-	    throw new Social_OAuth_Exception( 'Oauth Error: '. $dataInsteadOfAccessToken->error->message );
-	} 
+	    //throw new Social_OAuth_Exception( 'Oauth Error: '. $dataInsteadOfAccessToken->error->message );
+                }
+            } catch ( Exception $e ) {
+                 throw new Social_OAuth_Exception( 'Oauth Error: ' . $e->getMessage());
+                //$arrResult[ 'error']  = $e->getMessage();
+            }
+
+  
+	 
         
         $strGraphUrl = 'https://graph.facebook.com/me?' . $this->_strAccessToken;
         $this->_strRawGraphData = $this->_fetchUrl( $strGraphUrl );
